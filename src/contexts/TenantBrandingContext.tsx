@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { applyStatusLabelOverrides } from "@/lib/statusLabels";
+import { applyTeamRoleLabelOverrides } from "@/lib/teamRoleLabels";
 
 interface TenantBranding {
   slug: string | null;
@@ -74,9 +75,11 @@ export function TenantBrandingProvider({ children }: { children: ReactNode }) {
       if (!row) {
         setState({ ...DEFAULT_BRANDING, loading: false, isKnownTenant: false });
         applyStatusLabelOverrides(null);
+        applyTeamRoleLabelOverrides(null);
         return;
       }
       applyStatusLabelOverrides(row.status_labels);
+      applyTeamRoleLabelOverrides(row.team_role_labels);
 
       const branding: TenantBranding = {
         slug: row.slug,

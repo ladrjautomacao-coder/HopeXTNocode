@@ -23,6 +23,7 @@ import {
 } from "@/lib/followUpNotes";
 import { Constants } from "@/integrations/supabase/types";
 import { statusLabels } from "@/pages/ProjectManagement";
+import { teamRoleLabels } from "@/lib/teamRoleLabels";
 import { Search, RefreshCw, Signal, AlertTriangle, Radio, Download } from "lucide-react";
 import type { DbFollowUpNote, FollowUpProject, ProjectStatus } from "@/components/comercial/types";
 
@@ -311,7 +312,7 @@ export default function VisaoComercial() {
   }, [projects, isStale]);
 
   const exportCsv = () => {
-    const head = ["Código", "Empresa", "Cidade", "UF/País", "Gerente", "Executivo", "Status", "Frota", "Implantada", "Dias sem atualização", "Última atualização", "Autor"];
+    const head = ["Código", "Empresa", "Cidade", "UF/País", teamRoleLabels.manager ?? "Gerente", teamRoleLabels.executive ?? "Executivo", "Status", "Frota", "Implantada", "Dias sem atualização", "Última atualização", "Autor"];
     const lines = visibleProjects.map(p => {
       const note = effectiveLatestFollowUp(p);
       return [

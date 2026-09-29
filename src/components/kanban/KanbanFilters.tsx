@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Filter, X } from "lucide-react";
 import { Constants } from "@/integrations/supabase/types";
 import { statusLabels } from "@/pages/ProjectManagement";
+import { teamRoleLabels } from "@/lib/teamRoleLabels";
 
 import type { ProjectFilters } from "@/contexts/ProjectFiltersContext";
 
@@ -35,7 +36,7 @@ export default function KanbanFilters({ filters, setFilter, clearFilters, hasAct
 
       <div className="space-y-3">
         <div>
-          <label className="text-xs font-medium text-muted-foreground mb-1 block">Gerente de Projetos</label>
+          <label className="text-xs font-medium text-muted-foreground mb-1 block">{teamRoleLabels.manager ?? "Gerente de Projetos"}</label>
           <Select value={filters.managerId || "all"} onValueChange={v => setFilter("managerId", v === "all" ? "" : v)}>
             <SelectTrigger className="h-9 text-xs"><SelectValue placeholder="Gerentes" /></SelectTrigger>
             <SelectContent>
